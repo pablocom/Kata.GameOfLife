@@ -68,7 +68,71 @@ namespace Kata.GameOfLife.Tests
 
             Assert.That(neighborsAlive, Is.EqualTo(3));
         }
-        
+
+        [Test]
+        public void MakeDieCellWithNoNeighbors()
+        {
+            GivenGameOfLifeWithInitialState(new[]
+            {
+                new [] { false, false, false },
+                new [] { false, true, false },
+                new [] { false, false, false }
+            });
+
+            gameOfLife.NextGeneration();    
+
+            Assert.That(gameOfLife.CellsAliveCount, Is.EqualTo(0));
+            Assert.That(gameOfLife.Board[1][1], Is.False);
+        }
+
+        [Test]
+        public void MakeDieCellWithOneNeighbors()
+        {
+            GivenGameOfLifeWithInitialState(new[]
+            {
+                new [] { false, true, false },
+                new [] { false, true, false },
+                new [] { false, false, false }
+            });
+
+            gameOfLife.NextGeneration();
+
+            Assert.That(gameOfLife.CellsAliveCount, Is.EqualTo(0));
+            Assert.That(gameOfLife.Board[1][1], Is.False);
+            Assert.That(gameOfLife.Board[0][1], Is.False);
+        }
+
+        [Test]
+        public void MakeDieCellWithFiveNeighbors()
+        {
+            GivenGameOfLifeWithInitialState(new[]
+            {
+                new [] { true, true, true },
+                new [] { true, true, true },
+                new [] { false, false, false }
+            });
+
+            gameOfLife.NextGeneration();
+            
+            Assert.That(gameOfLife.Board[0][1], Is.False);
+            Assert.That(gameOfLife.Board[1][1], Is.False);
+        }
+
+        [Test]
+        public void MakeLiveDeadCellWithExactThreeNeighborsAlive()
+        {
+            GivenGameOfLifeWithInitialState(new[]
+            {
+                new [] { false, true, false },
+                new [] { true, true, false },
+                new [] { false, false, false }
+            });
+
+            gameOfLife.NextGeneration();
+            
+            Assert.That(gameOfLife.Board[0][0], Is.True);
+        }
+
         private void GivenGameOfLifeWithInitialState(bool[][] board)
         {
             gameOfLife = new GameOfLife(board);
