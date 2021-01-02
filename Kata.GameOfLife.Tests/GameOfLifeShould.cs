@@ -103,12 +103,12 @@ namespace Kata.GameOfLife.Tests
         }
 
         [Test]
-        public void MakeDieCellWithFiveNeighbors()
+        public void MakeDieCellWithFourNeighbors()
         {
             GivenGameOfLifeWithInitialState(new[]
             {
                 new [] { true, true, true },
-                new [] { true, true, true },
+                new [] { true, true, false },
                 new [] { false, false, false }
             });
 

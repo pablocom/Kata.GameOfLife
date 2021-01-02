@@ -21,22 +21,15 @@ namespace Kata.GameOfLife
             for (var i = 0; i < Board.Length; i++)
             for (var j = 0; j < Board[i].Length; j++)
             {
-                if (Board[i][j] == true)
+                if (Board[i][j])
                 {
-                    if (CountNeighborsAliveOfCell(i, j) < 2)
-                    {
+                    if (CountNeighborsAliveOfCell(i, j) < 2) 
                         cellsToChange.Add(new Tuple<int, int>(i, j), false);
-                    }
-                    if (CountNeighborsAliveOfCell(i, j) > 3)
-                    {
+                    if (CountNeighborsAliveOfCell(i, j) > 3) 
                         cellsToChange.Add(new Tuple<int, int>(i, j), false);
-                    }
                 }
-                else
-                {
-                    if (CountNeighborsAliveOfCell(i, j) == 3)
-                        cellsToChange.Add(new Tuple<int, int>(i, j), true);
-                }
+                else if (CountNeighborsAliveOfCell(i, j) == 3)
+                    cellsToChange.Add(new Tuple<int, int>(i, j), true);
             }
 
             foreach (var cellToChange in cellsToChange)
